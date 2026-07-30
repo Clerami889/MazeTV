@@ -2,8 +2,10 @@ package com.test.mazetv.main.details.view
 
 import android.text.Html
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -12,6 +14,9 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Share
@@ -34,6 +39,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import androidx.compose.ui.window.DialogProperties
@@ -115,39 +121,84 @@ fun ShowDetailsView(
           val showsDetails = state.data
           val show = showsDetails.shows
           val summary = Html.fromHtml(show.summary, Html.FROM_HTML_MODE_LEGACY)
-          Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
-            AsyncImage(
-                model = show.image.medium,
-                contentDescription = show.name,
-                modifier =
-                    Modifier.fillMaxWidth().height(300.dp).clickable { showFullImage = true },
-                contentScale = ContentScale.Crop,
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = show.name,
-                style = MaterialTheme.typography.headlineMedium,
-            )
-            Spacer(modifier = Modifier.height(8.dp))
-            Row(verticalAlignment = Alignment.CenterVertically) {
-              Icon(
-                  imageVector = Icons.Default.Star,
-                  contentDescription = null,
-                  tint = MaterialTheme.colorScheme.primary,
-                  modifier = Modifier.size(24.dp),
-              )
-              Spacer(modifier = Modifier.width(4.dp))
-              Text(
-                  text =
-                      show.rating.average?.toString()
-                          ?: stringResource(R.string.DetailsRatingFallback),
-                  style = MaterialTheme.typography.bodyLarge,
+          LazyColumn(
+              modifier = Modifier.fillMaxSize(),
+              contentPadding = PaddingValues(bottom = 16.dp),
+          ) {
+            item {
+              AsyncImage(
+                  model = show.image.medium,
+                  contentDescription = show.name,
+                  modifier =
+                      Modifier.fillMaxWidth().height(400.dp).clickable { showFullImage = true },
+                  contentScale = ContentScale.Crop,
               )
             }
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = stringResource(R.string.PremiereDateText, show.premiered))
-            Spacer(modifier = Modifier.height(8.dp))
-            Text(text = summary.toString())
+            // ? Movie
+            item {
+              Column(modifier = Modifier.padding(16.dp)) {
+                Text(
+                    text = show.name,
+                    style = MaterialTheme.typography.headlineMedium,
+                )
+                Spacer(modifier = Modifier.height(8.dp))
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                  Icon(
+                      imageVector = Icons.Default.Star,
+                      contentDescription = null,
+                      tint = MaterialTheme.colorScheme.primary,
+                      modifier = Modifier.size(24.dp),
+                  )
+                  Spacer(modifier = Modifier.width(4.dp))
+                  Text(
+                      text = show.rating.average?.toString() ?: "N/A",
+                      style = MaterialTheme.typography.bodyLarge,
+                  )
+                }
+                Spacer(modifier = Modifier.height(8.dp))
+                Text(
+                    text = "Premiere Date : ${show.premiered}",
+                    style = MaterialTheme.typography.bodyMedium,
+                )
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Summary",
+                    style = MaterialTheme.typography.titleMedium,
+                    fontWeight = FontWeight.Bold,
+                )
+                Spacer(modifier = Modifier.height(4.dp))
+                Text(text = summary.toString())
+              }
+            }
+
+            // ? Seasons
+            if (showsDetails.seasons.isNotEmpty()) {
+              item {
+                Spacer(modifier = Modifier.height(16.dp))
+                Text(
+                    text = "Seasons",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier =
+                        Modifier.padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp,
+                        ),
+                    fontWeight = FontWeight.Bold,
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                  items(showsDetails.seasons) { season ->
+                    SeasonView(
+                        season = season,
+                        isSelected = season.id == selectedSeasonId,
+                        onClick = { viewModel.selectSeason(season.id) },
+                    )
+                  }
+                }
+              }
+            }
           }
         }
 
