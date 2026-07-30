@@ -4,7 +4,8 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import com.test.mazetv.shows.View.ShowView
+import androidx.navigation.compose.rememberNavController
+import com.test.mazetv.navigation.NavGraph
 import com.test.mazetv.ui.theme.MazeTVTheme
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -15,7 +16,8 @@ class MainActivity : ComponentActivity() {
     enableEdgeToEdge()
     setContent {
       MazeTVTheme {
-        ShowView()
+        val navController = rememberNavController()
+        NavGraph(navController = navController)
       }
     }
   }

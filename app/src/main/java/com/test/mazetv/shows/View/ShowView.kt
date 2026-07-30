@@ -21,7 +21,7 @@ import com.test.mazetv.shows.ViewModel.ShowViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun ShowView(viewModel: ShowViewModel = hiltViewModel()) {
+fun ShowView(onShowClick: (Int) -> Unit, viewModel: ShowViewModel = hiltViewModel()) {
   val show = viewModel.show.collectAsState().value
 
   Scaffold(
@@ -37,7 +37,7 @@ fun ShowView(viewModel: ShowViewModel = hiltViewModel()) {
       }
   ) { Padding ->
     LazyColumn(modifier = Modifier.fillMaxSize().padding(Padding).padding(16.dp)) {
-      items(show) { shows -> ShowCardView(shows) }
+      items(show) { shows -> ShowCardView(shows, { onShowClick(shows.id) }) }
     }
   }
 }

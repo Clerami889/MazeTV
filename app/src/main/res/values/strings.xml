@@ -4,4 +4,7 @@
     <string name="RatingFallback">N/A</string>
     <string name="CardViewImageDescription">Movie Image</string>
     <string name="CardViewIconDescription">Stars</string>
+    <string name="ShowDetailsRatingDesc">N/A</string>
+    <string name="ShowDetailsIconBack">Back</string>
+    <string name="ShowDetailsTitle">Details</string>
 </resources>

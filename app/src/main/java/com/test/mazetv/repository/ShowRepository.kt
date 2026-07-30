@@ -9,4 +9,8 @@ class ShowRepository @Inject constructor(private val apiService: ApiService) {
   suspend fun getShows(): List<Shows> {
     return apiService.getShows()
   }
+
+  suspend fun getShowsById(id: Int): Shows {
+    return apiService.getShowsById(id)
+  }
 }

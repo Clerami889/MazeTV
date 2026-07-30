@@ -6,6 +6,8 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Star
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.Icon
@@ -14,7 +16,6 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
-import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
@@ -22,12 +23,13 @@ import com.test.mazetv.R
 import com.test.mazetv.data.models.Shows
 
 @Composable
-fun ShowCardView(shows: Shows) {
+fun ShowCardView(shows: Shows, onClick: () -> Unit) {
   Card(
       colors =
           CardDefaults.cardColors(containerColor = MaterialTheme.colorScheme.secondaryContainer),
       modifier = Modifier.fillMaxSize().padding(vertical = 8.dp),
       elevation = CardDefaults.cardElevation(defaultElevation = 12.dp),
+      onClick = onClick,
   ) {
     Row(modifier = Modifier.padding(16.dp)) {
       AsyncImage(
@@ -40,7 +42,7 @@ fun ShowCardView(shows: Shows) {
         Text(text = shows.name, color = MaterialTheme.colorScheme.onSurface)
         Row() {
           Icon(
-              painter = painterResource(R.drawable.baseline_star_24),
+              imageVector = Icons.Default.Star,
               contentDescription = stringResource(R.string.CardViewIconDescription),
           )
           Spacer(Modifier.width(4.dp))

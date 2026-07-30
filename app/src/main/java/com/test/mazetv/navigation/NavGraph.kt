@@ -6,6 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.test.mazetv.details.View.ShowDetailsView
+import com.test.mazetv.shows.View.ShowView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
@@ -13,7 +15,13 @@ fun NavGraph(navController: NavHostController) {
       navController = navController,
       startDestination = NavRoute.View.path,
   ) {
-    composable(NavRoute.View.path) {}
+    composable(NavRoute.View.path) {
+      ShowView(
+          onShowClick = { showsId ->
+            navController.navigate(NavRoute.Details.createRoute(showsId))
+          }
+      )
+    }
 
     composable(
         route = NavRoute.Details.path,
@@ -21,6 +29,12 @@ fun NavGraph(navController: NavHostController) {
             listOf(
                 navArgument("showsId") { type = NavType.IntType },
             ),
-    ) {}
+    ) {
+      ShowDetailsView(
+          onBackClick = {
+            navController.popBackStack()
+          }
+      )
+    }
   }
 }

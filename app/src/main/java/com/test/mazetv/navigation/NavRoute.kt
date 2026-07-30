@@ -4,7 +4,7 @@ sealed class NavRoute(val path: String) {
 
   object View : NavRoute("view")
 
-  object Details : NavRoute("shows/{showsId}") {
-    fun createRoute(showsId: Int) = "shows/$showsId"
+  object Details : NavRoute("details/{showsId}") {
+    fun createRoute(showsId: Int) = "details/$showsId"
   }
 }
