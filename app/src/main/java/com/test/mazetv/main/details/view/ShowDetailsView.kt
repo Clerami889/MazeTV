@@ -223,6 +223,36 @@ fun ShowDetailsView(
                 }
               }
             }
+
+            // ? Episodes
+            when (val epsState = seasonEpisodesState) {
+              is UiState.Loading -> {
+                item {
+                  Box(
+                      modifier = Modifier.padding(padding).fillMaxWidth().padding(32.dp),
+                      contentAlignment = Alignment.Center,
+                  ) {
+                    CircularProgressIndicator()
+                  }
+                }
+              }
+
+              is UiState.Success -> {
+                items(epsState.data) { episode ->
+                  EpisodeView(episode)
+                }
+              }
+
+              is UiState.Error -> {
+                item {
+                  Text(
+                      text = epsState.message,
+                      color = MaterialTheme.colorScheme.error,
+                      modifier = Modifier.padding(16.dp),
+                  )
+                }
+              }
+            }
           }
         }
 

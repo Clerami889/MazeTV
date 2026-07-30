@@ -16,7 +16,9 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class ShowDetailsViewModel @Inject constructor(
+class ShowDetailsViewModel
+@Inject
+constructor(
     private val showRepository: ShowRepository,
     savedStateHandle: SavedStateHandle,
 ) : ViewModel() {
@@ -58,6 +60,11 @@ class ShowDetailsViewModel @Inject constructor(
                 cast = cast,
             )
         _showState.value = UiState.Success(showDetails)
+
+        if (seasons.isNotEmpty() && _selectedSeasonId.value == null) {
+          val firstSeasonId = seasons.first().id
+          selectSeason(firstSeasonId)
+        }
       } catch (e: Exception) {
         _showState.value = UiState.Error(e.message ?: "Unknown Error")
       }

@@ -6,10 +6,5 @@ data class Episode(
     val name: String,
     val season: Int,
     val number: Int,
-    val airdate: String,
-    val airtime: String,
-    val runtime: Int?,
-    val rating: Rating,
     val image: Image?,
-    val summary: String?,
 )
