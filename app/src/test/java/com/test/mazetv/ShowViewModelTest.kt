@@ -41,8 +41,7 @@ class ShowViewModelTest {
   }
 
   @Test
-  fun `fetchShowDetails emits Success with show data`() = runTest {
-    // Arrange
+  fun `fetchShowDetails emits Loading then Success with show data`() = runTest {
     val fakeShow =
         listOf(
             Shows(
