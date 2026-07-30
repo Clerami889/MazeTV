@@ -7,7 +7,7 @@
 - Run the app on an emulator or a physical device (Android 8+)
 
 **Option 2: Install prebuilt APK/AAB**
-- Download the APK/AAB from Releases [(github.com in Bing)](https://www.bing.com/search?q="https%3A%2F%2Fgithub.com%2Fyourusername%2Fyourrepo%2Freleases")  
+- Download the APK/AAB from Releases
 - Install it on your device  
 - Open the app
 
