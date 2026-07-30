@@ -2,4 +2,6 @@
     <string name="app_name">MazeTV</string>
     <string name="ShowViewTitle">Movies</string>
     <string name="RatingFallback">N/A</string>
+    <string name="CardViewImageDescription">Movie Image</string>
+    <string name="CardViewIconDescription">Stars</string>
 </resources>
