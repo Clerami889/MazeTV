@@ -1,4 +1,5 @@
 📱 How to Run
+
 Option 1: Build from source
 
 Clone the repository
@@ -18,6 +19,7 @@ Install it on your device
 Open the app
 
 🏗 Architecture Decisions
+
 MVVM: Chosen for familiarity and best practices; I’ve been using MVVM since Bangkit and am comfortable with it.
 
 Repository pattern: Provides abstraction between data sources and ViewModels.
@@ -29,6 +31,7 @@ UiState (sealed classes): Ensures reusability and consistency across screens.
 Best practices focus: I aim to build correct habits by following clean architecture principles in every part of the code.
 
 🚀 Future Improvements
+
 UI Enhancements: Current UI is functional but basic; more polish and design improvements are needed.
 
 Localization: Add support for multiple languages (currently only English).
@@ -40,4 +43,5 @@ Filter & Search: Help users quickly find intended movies/shows.
 Pagination: Implement proper paging for large datasets; I’ve learned it before but need deeper practice to apply it effectively.
 
 🎥 Demo Video
+
 https://drive.google.com/file/d/1ghn59as23ejDvqhSLnQ-Y_mAAOlZ6_78/view?usp=sharing
