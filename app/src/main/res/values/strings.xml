@@ -1,3 +1,5 @@
 <resources>
     <string name="app_name">MazeTV</string>
+    <string name="ShowViewTitle">Movies</string>
+    <string name="RatingFallback">N/A</string>
 </resources>
