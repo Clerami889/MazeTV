@@ -8,6 +8,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
@@ -24,7 +25,7 @@ fun ShowCardView(shows: Shows) {
   ) {
     Row(modifier = Modifier.padding(16.dp)) {
       Column() {
-        Text(text = shows.name)
+        Text(text = shows.name, color = MaterialTheme.colorScheme.onSurface)
         Row() {
           Spacer(Modifier.width(4.dp))
           Text(text = shows.rating.average?.toString() ?: stringResource(R.string.RatingFallback))

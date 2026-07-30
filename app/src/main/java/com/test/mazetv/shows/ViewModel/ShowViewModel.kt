@@ -23,7 +23,7 @@ class ShowViewModel @Inject constructor(private val showRepository: ShowReposito
 
   private fun fetchMovies() {
     viewModelScope.launch {
-      val show = showRepository.getShows()
+      _show.value = showRepository.getShows()
     }
   }
 }
