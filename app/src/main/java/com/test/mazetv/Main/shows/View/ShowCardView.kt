@@ -1,4 +1,4 @@
-package com.test.mazetv.shows.View
+package com.test.mazetv.Main.shows.View
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row

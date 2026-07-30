@@ -7,4 +7,6 @@
     <string name="ShowDetailsRatingDesc">N/A</string>
     <string name="ShowDetailsIconBack">Back</string>
     <string name="ShowDetailsTitle">Details</string>
+    <string name="PremiereDateText">Premiere Date : %1$s</string>
+    <string name="DetailsRatingFallback">N/A</string>
 </resources>

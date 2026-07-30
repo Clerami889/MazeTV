@@ -1,4 +1,4 @@
-package com.test.mazetv.shows.View
+package com.test.mazetv.Main.shows.View
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -23,8 +23,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.test.mazetv.Main.shows.ViewModel.ShowViewModel
 import com.test.mazetv.core.UiState
-import com.test.mazetv.shows.ViewModel.ShowViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable

@@ -1,4 +1,4 @@
-package com.test.mazetv.shows.ViewModel
+package com.test.mazetv.Main.shows.ViewModel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope

@@ -1,4 +1,4 @@
-package com.test.mazetv.details.ViewModel
+package com.test.mazetv.Main.details.ViewModel
 
 import androidx.lifecycle.SavedStateHandle
 import androidx.lifecycle.ViewModel

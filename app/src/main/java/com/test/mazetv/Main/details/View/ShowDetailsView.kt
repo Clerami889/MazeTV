@@ -1,5 +1,7 @@
-package com.test.mazetv.details.View
+package com.test.mazetv.Main.details.View
 
+import android.text.Html
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -24,18 +26,23 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.window.Dialog
+import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
+import com.test.mazetv.Main.details.ViewModel.ShowDetailsViewModel
 import com.test.mazetv.R
 import com.test.mazetv.core.UiState
-import com.test.mazetv.details.ViewModel.ShowDetailsViewModel
 import com.test.mazetv.helper.shareShow
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -46,6 +53,29 @@ fun ShowDetailsView(
 ) {
   val showState by viewModel.showState.collectAsStateWithLifecycle()
   val show = showState
+
+  var showFullImage by remember { mutableStateOf(false) }
+
+  if (showFullImage && showState is UiState.Success) {
+    val movie = (showState as UiState.Success).data
+    Dialog(
+        onDismissRequest = { showFullImage = false },
+        properties = DialogProperties(usePlatformDefaultWidth = false),
+    ) {
+      Box(
+          modifier = Modifier.fillMaxSize().clickable { showFullImage = false },
+          contentAlignment = Alignment.Center,
+      ) {
+        AsyncImage(
+            model = movie.image.original,
+            contentDescription = movie.name,
+            modifier = Modifier.fillMaxSize(),
+            contentScale = ContentScale.Fit,
+        )
+      }
+    }
+  }
+
   Scaffold(
       topBar = {
         TopAppBar(
@@ -81,12 +111,13 @@ fun ShowDetailsView(
 
         is UiState.Success -> {
           val show = state.data
-
+          val summary = Html.fromHtml(show.summary, Html.FROM_HTML_MODE_LEGACY)
           Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             AsyncImage(
                 model = show.image.medium,
                 contentDescription = show.name,
-                modifier = Modifier.fillMaxWidth().height(300.dp),
+                modifier =
+                    Modifier.fillMaxWidth().height(300.dp).clickable { showFullImage = true },
                 contentScale = ContentScale.Crop,
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -104,12 +135,16 @@ fun ShowDetailsView(
               )
               Spacer(modifier = Modifier.width(4.dp))
               Text(
-                  text = show.rating.average?.toString() ?: "N/A",
+                  text =
+                      show.rating.average?.toString()
+                          ?: stringResource(R.string.DetailsRatingFallback),
                   style = MaterialTheme.typography.bodyLarge,
               )
             }
             Spacer(modifier = Modifier.height(8.dp))
-            Text(text = show.summary)
+            Text(text = stringResource(R.string.PremiereDateText, show.premiered))
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(text = summary.toString())
           }
         }
 
