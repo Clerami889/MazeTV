@@ -171,6 +171,30 @@ fun ShowDetailsView(
               }
             }
 
+            // ? Cast
+            if (showsDetails.cast.isNotEmpty()) {
+              item {
+                Text(
+                    text = "Cast",
+                    style = MaterialTheme.typography.titleLarge,
+                    modifier =
+                        Modifier.padding(
+                            horizontal = 16.dp,
+                            vertical = 8.dp,
+                        ),
+                    fontWeight = FontWeight.Bold,
+                )
+                LazyRow(
+                    contentPadding = PaddingValues(horizontal = 16.dp),
+                    horizontalArrangement = Arrangement.spacedBy(12.dp),
+                ) {
+                  items(showsDetails.cast) { cast ->
+                    CastView(cast)
+                  }
+                }
+              }
+            }
+
             // ? Seasons
             if (showsDetails.seasons.isNotEmpty()) {
               item {
