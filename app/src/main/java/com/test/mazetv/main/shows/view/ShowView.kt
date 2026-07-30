@@ -20,6 +20,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -37,7 +38,7 @@ fun ShowView(
   Scaffold(
       topBar = {
         TopAppBar(
-            title = { Text(text = "My Movies") },
+            title = { Text(text = stringResource(com.test.mazetv.R.string.ShowViewTitle)) },
             colors =
                 TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.primary,
@@ -78,7 +79,7 @@ fun ShowView(
             )
             Spacer(modifier = Modifier.height(16.dp))
             Button(onClick = { viewModel.retry() }) {
-              Text("Retry")
+              Text(stringResource(com.test.mazetv.R.string.ShowViewRetry))
             }
           }
         }

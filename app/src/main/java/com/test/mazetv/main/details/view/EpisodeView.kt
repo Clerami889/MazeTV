@@ -25,7 +25,7 @@ import com.test.mazetv.data.models.Episode
 @Composable
 fun EpisodeView(episode: Episode) {
   Card(
-      modifier = Modifier.fillMaxWidth().padding(horizontal = 16.dp, vertical = 4.dp),
+      modifier = Modifier.fillMaxWidth().padding(horizontal = 20.dp, vertical = 4.dp),
       shape = RoundedCornerShape(8.dp),
       elevation = CardDefaults.cardElevation(defaultElevation = 2.dp),
   ) {

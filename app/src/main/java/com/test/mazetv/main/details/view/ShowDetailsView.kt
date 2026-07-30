@@ -75,7 +75,7 @@ fun ShowDetailsView(
           contentAlignment = Alignment.Center,
       ) {
         AsyncImage(
-            model = show.image.medium,
+            model = show.image.original,
             contentDescription = show.name,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Fit,
@@ -92,7 +92,7 @@ fun ShowDetailsView(
               IconButton(onClick = onBackClick) {
                 Icon(
                     imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                    contentDescription = "Back",
+                    contentDescription = stringResource(R.string.BackContentDescription),
                 )
               }
             },
@@ -103,7 +103,7 @@ fun ShowDetailsView(
                 IconButton(onClick = { shareShow(context, shows = state.data.shows) }) {
                   Icon(
                       imageVector = Icons.Default.Share,
-                      contentDescription = "Share",
+                      contentDescription = stringResource(R.string.ShareContentDescription),
                   )
                 }
               }
@@ -151,7 +151,9 @@ fun ShowDetailsView(
                   )
                   Spacer(modifier = Modifier.width(4.dp))
                   Text(
-                      text = show.rating.average?.toString() ?: "N/A",
+                      text =
+                          show.rating.average?.toString()
+                              ?: stringResource(com.test.mazetv.R.string.DetailsRatingFallback),
                       style = MaterialTheme.typography.bodyLarge,
                   )
                 }

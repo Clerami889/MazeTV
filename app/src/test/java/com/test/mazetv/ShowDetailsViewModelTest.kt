@@ -80,8 +80,6 @@ class ShowDetailsViewModelTest {
         )
 
     viewModel.showState.test {
-      // The first item is either Loading or Success depending on how fast the init block runs
-      // Turbine collects items as they are emitted.
       var item = awaitItem()
       if (item is UiState.Loading) {
         item = awaitItem()
@@ -112,7 +110,6 @@ class ShowDetailsViewModelTest {
             savedStateHandle = SavedStateHandle(mapOf("showsId" to showsId)),
         )
 
-    // Wait for init block and initial selectSeason(101) to finish
     advanceUntilIdle()
 
     val fakeEpisodes =
