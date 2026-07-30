@@ -61,8 +61,9 @@ class ShowViewModelTest {
     viewModel = ShowViewModel(repository)
 
     viewModel.showState.test {
-      assertTrue(awaitItem() is UiState.Loading)
-      assertEquals(UiState.Loading, awaitItem())
+      val loading = awaitItem()
+      assertTrue(loading is UiState.Loading)
+      assertEquals(UiState.Loading, loading)
       val success = awaitItem()
       assertTrue(success is UiState.Success)
       assertEquals(fakeShow, (success as UiState.Success).data)
