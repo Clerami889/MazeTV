@@ -1,4 +1,4 @@
-package com.test.mazetv.Main.details.View
+package com.test.mazetv.main.details.view
 
 import android.text.Html
 import androidx.compose.foundation.clickable
@@ -40,10 +40,10 @@ import androidx.compose.ui.window.DialogProperties
 import androidx.hilt.lifecycle.viewmodel.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import coil.compose.AsyncImage
-import com.test.mazetv.Main.details.ViewModel.ShowDetailsViewModel
 import com.test.mazetv.R
 import com.test.mazetv.core.UiState
 import com.test.mazetv.helper.shareShow
+import com.test.mazetv.main.details.viewModel.ShowDetailsViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -52,12 +52,14 @@ fun ShowDetailsView(
     viewModel: ShowDetailsViewModel = hiltViewModel(),
 ) {
   val showState by viewModel.showState.collectAsStateWithLifecycle()
+  val seasonEpisodesState by viewModel.seasonEpisodesState.collectAsStateWithLifecycle()
+  val selectedSeasonId by viewModel.selectedSeasonId.collectAsStateWithLifecycle()
   val show = showState
 
   var showFullImage by remember { mutableStateOf(false) }
 
   if (showFullImage && showState is UiState.Success) {
-    val movie = (showState as UiState.Success).data
+    val show = (showState as UiState.Success).data.shows
     Dialog(
         onDismissRequest = { showFullImage = false },
         properties = DialogProperties(usePlatformDefaultWidth = false),
@@ -67,8 +69,8 @@ fun ShowDetailsView(
           contentAlignment = Alignment.Center,
       ) {
         AsyncImage(
-            model = movie.image.original,
-            contentDescription = movie.name,
+            model = show.image.medium,
+            contentDescription = show.name,
             modifier = Modifier.fillMaxSize(),
             contentScale = ContentScale.Fit,
         )
@@ -90,9 +92,9 @@ fun ShowDetailsView(
             },
             actions = {
               val context = LocalContext.current
-
-              if (show is UiState.Success) {
-                IconButton(onClick = { shareShow(context, show.data) }) {
+              val state = showState
+              if (state is UiState.Success) {
+                IconButton(onClick = { shareShow(context, shows = state.data.shows) }) {
                   Icon(
                       imageVector = Icons.Default.Share,
                       contentDescription = "Share",
@@ -110,7 +112,8 @@ fun ShowDetailsView(
         }
 
         is UiState.Success -> {
-          val show = state.data
+          val showsDetails = state.data
+          val show = showsDetails.shows
           val summary = Html.fromHtml(show.summary, Html.FROM_HTML_MODE_LEGACY)
           Column(modifier = Modifier.fillMaxSize().padding(16.dp)) {
             AsyncImage(

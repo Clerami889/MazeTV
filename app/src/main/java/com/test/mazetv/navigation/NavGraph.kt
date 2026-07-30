@@ -6,8 +6,8 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.test.mazetv.Main.details.View.ShowDetailsView
-import com.test.mazetv.Main.shows.View.ShowView
+import com.test.mazetv.main.details.view.ShowDetailsView
+import com.test.mazetv.main.shows.view.ShowView
 
 @Composable
 fun NavGraph(navController: NavHostController) {
